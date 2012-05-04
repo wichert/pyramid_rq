@@ -22,7 +22,7 @@ def rq_tween_factory(handler, registry):
 def includeme(config):
     try:
         host = get_setting(config, 'host', 'localhost')
-        port = get_setting(config, 'port', 9836)
+        port = get_setting(config, 'port', 6379)
         db = get_setting(config, 'db', 1)
     except ValueError:
         raise ValueError('Invalid rq/redis configuration')

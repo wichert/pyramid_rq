@@ -52,7 +52,7 @@ three options:
    ``localhost``.
 
 ``rq.redis.port`` or ``redis.port``
-   The TCP port used to connect to the redis server. Defaults to 9836.
+   The TCP port used to connect to the redis server. Defaults to 6379.
 
 ``rq.redis.db`` or ``redis.db``
    The redis database nmber to use. If not specified this defaults to 1.

@@ -73,6 +73,6 @@ class includeme_tests(unittest.TestCase):
         with mock.patch('pyramid_rq.get_setting') as mock_get_setting:
             mock_get_setting.return_value = None
             self.includeme(config)
-            self.assertTrue('rq.redis' in config.registry)
+            self.assertTrue('rq.redis' in config.registry.settings)
             config.add_tween.assert_called_once_with(
                     'pyramid_rq.rq_tween_factory')

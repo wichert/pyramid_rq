@@ -1,7 +1,11 @@
 import argparse
 import sys
 import rq
-import transaction
+try:
+    from transaction import get as get_transaction
+    HAVE_TRANSACTION = True
+except ImportError:
+    HAVE_TRANSACTION = False
 from pyramid.paster import bootstrap
 from rq import Queue, Worker
 from redis.exceptions import ConnectionError
@@ -17,9 +21,11 @@ class PyramidWorker(Worker):
                 (job.func_name, job.origin))
         try:
             super(PyramidWorker, self).perform_job(job)
-            transaction.commit()
+            if HAVE_TRANSACTION:
+                get_transaction.commit()
         except:
-            transaction.abort()
+            if HAVE_TRANSACTION:
+                get_transaction.abort()
             raise
         finally:
             self.environment['closer']()
